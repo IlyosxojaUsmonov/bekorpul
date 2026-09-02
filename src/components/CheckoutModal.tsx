@@ -20,18 +20,15 @@ export default function CheckoutModal({ plan, onClose, onToast, onPaid }: Checko
       ? "Miqdorni o'zingiz belgilaysiz — evaziga hech narsa"
       : `${formatSom(plan.price)} so'm${plan.per} evaziga hech narsa`;
 
-  async function handleCopy(cardNumber: string, label: string) {
+  async function handlePayWithApp(card: (typeof PAY_CARDS)[number], app: (typeof PAY_APPS)[number]) {
     try {
-      await copyText(cardNumber);
-      onToast(`${label} raqami nusxalandi ✓`);
-      setCopiedCard(cardNumber);
-      setTimeout(() => setCopiedCard((c) => (c === cardNumber ? null : c)), 1800);
+      await copyText(card.number);
+      onToast(`${card.label} raqami nusxalandi — ${app.name} ochilmoqda`);
+      setCopiedCard(card.number);
+      setTimeout(() => setCopiedCard((c) => (c === card.number ? null : c)), 1800);
     } catch {
-      onToast(`Nusxalab bo'lmadi — qo'lda kiriting: ${cardNumber}`);
+      onToast(`Nusxalab bo'lmadi — qo'lda kiriting: ${card.number}`);
     }
-  }
-
-  function handleOpenApp(app: (typeof PAY_APPS)[number]) {
     arm();
     openPaymentApp(app);
   }
@@ -55,28 +52,23 @@ export default function CheckoutModal({ plan, onClose, onToast, onPaid }: Checko
               <span className="pay-label mono">{card.label}</span>
               <span className="pay-holder">{card.holder}</span>
             </div>
-            <span className="pay-number mono">{card.displayNumber}</span>
-            <button
-              className={"pay-btn" + (copiedCard === card.number ? " done" : "")}
-              onClick={() => handleCopy(card.number, card.label)}
-            >
-              {copiedCard === card.number ? "Nusxalandi ✓" : "Raqamni nusxalash"}
-            </button>
+            <span className={"pay-number mono" + (copiedCard === card.number ? " done" : "")}>
+              {copiedCard === card.number ? "Nusxalandi ✓" : card.displayNumber}
+            </span>
+            <div className="app-row">
+              {PAY_APPS.map((app) => (
+                <button key={app.name} className="app-btn" onClick={() => handlePayWithApp(card, app)}>
+                  {app.name}
+                </button>
+              ))}
+            </div>
           </div>
         ))}
 
-        <p className="app-label">Nusxalagach, istalgan ilovada to'lang:</p>
-        <div className="app-row">
-          {PAY_APPS.map((app) => (
-            <button key={app.name} className="app-btn" onClick={() => handleOpenApp(app)}>
-              {app.name}'ni ochish
-            </button>
-          ))}
-        </div>
-
         <p className="disclaimer">
-          Karta raqami joylashtiriladi &mdash; miqdorni ilovada o'zingiz kiritasiz. To'lab shu oynaga
-          qaytsangiz, sertifikat avtomatik chiqadi.
+          Tugmani bosishning o'zi kifoya &mdash; karta raqami avtomatik nusxalanadi va ilova ochiladi;
+          ichkarida faqat joylashtirib (paste) miqdorni kiritasiz. To'lab shu oynaga qaytsangiz,
+          sertifikat avtomatik chiqadi.
         </p>
       </div>
     </div>
