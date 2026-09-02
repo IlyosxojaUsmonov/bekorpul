@@ -200,13 +200,6 @@ table.cmp td.yes { color: var(--accent); font-weight: 700; }
 .faq-item[open] summary::after { content: "\2212"; }
 .faq-item p { margin: 0 0 20px; color: var(--ink-soft); font-size: 14.5px; line-height: 1.6; max-width: 60ch; }
 
-/* stats strip */
-.stat-strip {
-  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
-  font-size: 12.5px; color: var(--muted); padding-top: 14px;
-}
-.stat-strip strong { color: var(--ink-soft); }
-
 footer.site {
   background: var(--surface-2); border-top: 1px solid var(--line); padding: 52px 0 26px;
 }
@@ -235,40 +228,49 @@ footer.site {
   max-height: 90vh; overflow-y: auto; border-radius: 14px; border: 1px solid var(--line);
   padding: 24px 22px; box-shadow: 0 30px 60px var(--shadow);
 }
-.sheet-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 6px; }
-.sheet-head h3 { margin: 0; font-family: "Fraunces", serif; font-size: 22px; }
+.sheet-head {
+  position: relative; min-height: 46px; padding-right: 40px; margin-bottom: 6px;
+}
+.sheet-head h3 { margin: 0; padding-top: 2px; font-family: "Fraunces", serif; font-size: 22px; }
 .sheet-head .close { background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; padding: 4px; }
 .sheet-head .close:hover { color: var(--ink); }
+.dodge-close {
+  position: absolute; top: 0; right: 0;
+  transition: left 0.35s ease, top 0.35s ease;
+}
+.escape-hint {
+  font-size: 12px; color: var(--accent); margin: 0 0 14px; text-align: center;
+}
 .sheet .selected-price { font-size: 13.5px; color: var(--muted); margin: 0 0 18px; }
 
-.pay-row { border-top: 1px dashed var(--line); padding: 14px 0; }
+.pay-row { border-top: 1px dashed var(--line); padding: 14px 0; border-radius: 8px; transition: box-shadow 0.2s ease; }
 .pay-row:last-of-type { border-bottom: 1px dashed var(--line); margin-bottom: 16px; }
+.pay-row.pulse { box-shadow: 0 0 0 3px var(--accent); animation: pay-row-pulse 0.9s ease; }
 .pay-top { display: flex; justify-content: space-between; align-items: baseline; }
 .pay-label { font-weight: 700; font-size: 13px; letter-spacing: 0.05em; }
 .pay-holder { font-size: 11px; color: var(--muted); }
 .pay-number { display: block; font-size: clamp(16px, 5vw, 19px); margin: 6px 0 10px; letter-spacing: 0.03em; }
-.pay-number.done { color: var(--accent); font-weight: 700; }
-.app-label { font-size: 12.5px; color: var(--muted); margin: 2px 0 8px; }
-.pay-row .app-row { display: flex; gap: 8px; margin-bottom: 0; }
-.app-row { display: flex; gap: 8px; margin-bottom: 14px; }
-.app-btn {
-  flex: 1; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink);
-  font-family: inherit; font-size: 13px; font-weight: 600; padding: 10px 8px; cursor: pointer; border-radius: 7px;
+.pay-btn {
+  width: 100%; background: transparent; border: 1.5px solid var(--ink); color: var(--ink);
+  font-family: inherit; font-size: 13px; padding: 10px 12px; cursor: pointer; border-radius: 7px;
 }
-.app-btn:hover { border-color: var(--accent); color: var(--accent); }
-.app-btn:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.pay-btn:hover { background: var(--ink); color: var(--bg); }
+.pay-btn.done { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.pay-btn:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 .sheet .disclaimer { font-size: 11.5px; color: var(--muted); text-align: center; margin-top: 4px; }
 
-.ticket { text-align: center; }
-.ticket .kicker2 { font-size: 12px; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
-.ticket .big { font-family: "Fraunces", serif; font-size: 36px; margin: 6px 0 4px; }
-.ticket .cert { display: inline-block; margin: 14px 0 8px; padding: 7px 14px; border: 1px dashed var(--line); border-radius: 8px; font-size: 13px; }
-.ticket p.small { font-size: 12.5px; color: var(--muted); margin: 4px 0; }
-.ticket .ok-btn {
-  margin-top: 18px; width: 100%; background: var(--ink); color: var(--bg); border: none;
-  font-family: inherit; font-weight: 700; padding: 12px; cursor: pointer; border-radius: 8px;
+.confirm-gauntlet {
+  margin-top: 16px; padding: 16px; border: 1.5px dashed var(--accent); border-radius: 10px;
+  background: var(--accent-soft); text-align: center;
 }
-.ticket .ok-btn:hover { background: var(--accent); color: var(--accent-ink); }
+.confirm-gauntlet p { margin: 0 0 10px; font-size: 15px; font-weight: 700; }
+.confirm-gauntlet .pay-btn { width: auto; padding: 8px 28px; }
+
+@keyframes pay-row-pulse {
+  0% { box-shadow: 0 0 0 3px var(--accent); }
+  60% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 35%, transparent); }
+  100% { box-shadow: 0 0 0 3px var(--accent); }
+}
 
 .toast {
   position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%) translateY(10px);
@@ -279,5 +281,7 @@ footer.site {
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 @media (prefers-reduced-motion: reduce) {
-  .btn-primary, .app-btn, .toast, .plan .cta { transition: none; }
+  .btn-primary, .pay-btn, .toast, .plan .cta { transition: none; }
+  .dodge-close { transition: none !important; }
+  .pay-row.pulse { animation: none; }
 }

@@ -16,11 +16,3 @@ export interface PayCard {
   number: string; // faqat raqamlar, nusxalash uchun
   displayNumber: string; // bo'shliqlar bilan, ko'rsatish uchun
 }
-
-export interface PayApp {
-  name: string;
-  /** Ilova o'rnatilmagan bo'lsa ochiladigan veb-sahifa. */
-  webUrl: string;
-  /** Android'da ilovani to'g'ridan-to'g'ri ochish uchun Google Play paket nomi. */
-  androidPackage: string;
-}

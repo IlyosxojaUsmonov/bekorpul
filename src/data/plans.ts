@@ -1,4 +1,4 @@
-import type { Plan, PayCard, PayApp } from "../types";
+import type { Plan, PayCard } from "../types";
 
 export const PLANS: Plan[] = [
   {
@@ -50,14 +50,6 @@ export const PAY_CARDS: PayCard[] = [
     number: "9860600431639035",
     displayNumber: "9860 6004 3163 9035",
   },
-];
-
-// Play Store'dagi rasmiy ro'yxatlardan tekshirilgan paket nomlari:
-// payme - to'lov va o'tkazmalar -> uz.dida.payme
-// Click SuperApp -> air.com.ssdsoftwaresolutions.clickuz
-export const PAY_APPS: PayApp[] = [
-  { name: "Payme", webUrl: "https://payme.uz", androidPackage: "uz.dida.payme" },
-  { name: "Click", webUrl: "https://click.uz", androidPackage: "air.com.ssdsoftwaresolutions.clickuz" },
 ];
 
 export const COMPARE_ROWS: Array<{ feature: string; values: string[] }> = [

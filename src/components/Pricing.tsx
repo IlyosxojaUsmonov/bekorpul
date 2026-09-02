@@ -2,15 +2,12 @@ import { PLANS } from "../data/plans";
 import type { Plan } from "../types";
 import PlanCard from "./PlanCard";
 import CompareTable from "./CompareTable";
-import { formatSom } from "../utils";
 
 interface PricingProps {
   onSelectPlan: (plan: Plan) => void;
-  deviceCount: number;
-  deviceSum: number;
 }
 
-export default function Pricing({ onSelectPlan, deviceCount, deviceSum }: PricingProps) {
+export default function Pricing({ onSelectPlan }: PricingProps) {
   return (
     <section id="pricing">
       <div className="wrap">
@@ -27,15 +24,6 @@ export default function Pricing({ onSelectPlan, deviceCount, deviceSum }: Pricin
         </div>
 
         <CompareTable />
-
-        <div className="stat-strip mono">
-          <span>
-            Bu qurilmada: <strong>{deviceCount}</strong> marta faollashtirilgan
-          </span>
-          <span>
-            <strong>{formatSom(deviceSum)}</strong> so'm "sarflangan"
-          </span>
-        </div>
       </div>
     </section>
   );
