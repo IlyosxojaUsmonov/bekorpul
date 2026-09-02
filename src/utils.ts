@@ -29,25 +29,34 @@ const isAndroid = typeof navigator !== "undefined" && /Android/i.test(navigator.
 /**
  * To'lov ilovasini ochishga urinadi.
  *
- * Android'da bu ilovaning Google Play'dagi haqiqiy paket nomidan foydalanib
- * `intent://` orqali ilovani to'g'ridan-to'g'ri ochishga urinadi (ilova
- * o'rnatilgan bo'lsa) va o'rnatilmagan bo'lsa avtomatik ravishda veb-sahifaga
- * (yoki brauzer orqali Play Store'ga) qaytadi. Boshqa platformalarda
- * (iOS, desktop) faqat rasmiy veb-sahifa ochiladi — chunki bu ilovalar
- * o'sha platformalar uchun tekshirilgan/hujjatlashtirilgan chuqur havola
- * (deep link) sxemasini ochiq e'lon qilmagan.
+ * Android'da ilovaning asosiy ekranini (LAUNCHER/MAIN activity) paket nomi
+ * bo'yicha to'g'ridan-to'g'ri ochadi — bu web-havola (https://payme.uz va
+ * hokazo) orqali emas, chunki Payme/Click o'z marketing saytlarini Android
+ * App Link sifatida ilovaga bog'lamagan (tekshirildi: shu sabab avvalgi
+ * `scheme=https`li intent doim saytga qaytib ketardi). Paket nomi bo'yicha
+ * ishga tushirish esa faqat "shu paket o'rnatilganmi"ga qaraydi, shuning
+ * uchun ilova o'rnatilgan bo'lsa — ishonchli ochiladi. Navigatsiya
+ * `location.href` orqali (top-level) qilinadi, chunki mobil brauzerlar
+ * `window.open`ga yuborilgan `intent://` havolalarni ko'pincha e'tiborsiz
+ * qoldiradi. Ilova o'rnatilmagan bo'lsa, `browser_fallback_url` orqali
+ * veb-sahifaga tushadi. Boshqa platformalarda (iOS, desktop) faqat rasmiy
+ * veb-sahifa ochiladi — bu platformalarda tasdiqlangan ochiq deep-link
+ * sxemasi yo'q (iOS'da mos custom scheme topilmadi), desktopda esa bu
+ * ilovalarning umuman dasturi mavjud emas.
  *
- * Muhim: bu faqat ilovani ochadi. Miqdor yoki karta raqamini ilova ichida
- * avtomatik to'ldirib bo'lmaydi — buning uchun Payme/Click bilan rasmiy
- * "hamkor" (merchant) shartnomasi va backend integratsiyasi kerak bo'ladi.
+ * Muhim: bu ilovaning faqat bosh ekranini ochadi. Karta-kartaga o'tkazma
+ * ekraniga to'g'ridan-to'g'ri o'tish yoki karta raqamini ichkarida
+ * avtomatik to'ldirish imkonsiz — Payme'ning o'z hujjatlariga ko'ra ham bu
+ * qadam har doim qo'lda bajariladi, chunki buning uchun rasmiy "hamkor"
+ * (merchant) shartnomasi va backend integratsiyasi kerak bo'ladi.
  */
 export function openPaymentApp(app: PayApp): void {
   if (isAndroid) {
-    const host = app.webUrl.replace(/^https?:\/\//, "");
     const intentUrl =
-      `intent://${host}#Intent;scheme=https;package=${app.androidPackage};` +
+      `intent://#Intent;action=android.intent.action.MAIN;` +
+      `category=android.intent.category.LAUNCHER;package=${app.androidPackage};` +
       `S.browser_fallback_url=${encodeURIComponent(app.webUrl)};end`;
-    window.open(intentUrl, "_blank");
+    window.location.href = intentUrl;
     return;
   }
   window.open(app.webUrl, "_blank", "noopener");
