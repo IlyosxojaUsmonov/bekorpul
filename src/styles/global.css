@@ -232,20 +232,15 @@ footer.site {
   position: relative; min-height: 46px; padding-right: 40px; margin-bottom: 6px;
 }
 .sheet-head h3 { margin: 0; padding-top: 2px; font-family: "Fraunces", serif; font-size: 22px; }
-.sheet-head .close { background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; padding: 4px; }
-.sheet-head .close:hover { color: var(--ink); }
-.dodge-close {
+.sheet-head .close {
+  background: none; border: none; color: var(--muted); font-size: 20px; cursor: pointer; padding: 4px;
   position: absolute; top: 0; right: 0;
-  transition: left 0.35s ease, top 0.35s ease;
 }
-.escape-hint {
-  font-size: 12px; color: var(--accent); margin: 0 0 14px; text-align: center;
-}
+.sheet-head .close:hover { color: var(--ink); }
 .sheet .selected-price { font-size: 13.5px; color: var(--muted); margin: 0 0 18px; }
 
-.pay-row { border-top: 1px dashed var(--line); padding: 14px 0; border-radius: 8px; transition: box-shadow 0.2s ease; }
+.pay-row { border-top: 1px dashed var(--line); padding: 14px 0; border-radius: 8px; }
 .pay-row:last-of-type { border-bottom: 1px dashed var(--line); margin-bottom: 16px; }
-.pay-row.pulse { box-shadow: 0 0 0 3px var(--accent); animation: pay-row-pulse 0.9s ease; }
 .pay-top { display: flex; justify-content: space-between; align-items: baseline; }
 .pay-label { font-weight: 700; font-size: 13px; letter-spacing: 0.05em; }
 .pay-holder { font-size: 11px; color: var(--muted); }
@@ -255,22 +250,34 @@ footer.site {
   font-family: inherit; font-size: 13px; padding: 10px 12px; cursor: pointer; border-radius: 7px;
 }
 .pay-btn:hover { background: var(--ink); color: var(--bg); }
-.pay-btn.done { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
 .pay-btn:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
 .sheet .disclaimer { font-size: 11.5px; color: var(--muted); text-align: center; margin-top: 4px; }
 
-.confirm-gauntlet {
-  margin-top: 16px; padding: 16px; border: 1.5px dashed var(--accent); border-radius: 10px;
-  background: var(--accent-soft); text-align: center;
+.consent-gate {
+  padding: 18px; border: 1.5px dashed var(--accent); border-radius: 10px;
+  background: var(--accent-soft); text-align: center; margin-bottom: 6px;
 }
-.confirm-gauntlet p { margin: 0 0 10px; font-size: 15px; font-weight: 700; }
-.confirm-gauntlet .pay-btn { width: auto; padding: 8px 28px; }
-
-@keyframes pay-row-pulse {
-  0% { box-shadow: 0 0 0 3px var(--accent); }
-  60% { box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 35%, transparent); }
-  100% { box-shadow: 0 0 0 3px var(--accent); }
+.consent-badge {
+  display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+  color: var(--accent-ink); background: var(--accent); padding: 4px 10px; border-radius: 999px; margin-bottom: 10px;
 }
+.consent-text { font-size: 13.5px; color: var(--ink-soft); margin: 0 0 16px; line-height: 1.5; }
+.consent-switch {
+  display: flex; align-items: center; gap: 10px; cursor: pointer; justify-content: center;
+  font-size: 13.5px; font-weight: 600; text-align: left;
+}
+.consent-switch input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.consent-switch .track {
+  flex: 0 0 auto; width: 40px; height: 22px; border-radius: 999px; background: var(--line);
+  position: relative; transition: background 0.2s ease;
+}
+.consent-switch .thumb {
+  position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 50%;
+  background: var(--surface); box-shadow: 0 1px 3px var(--shadow); transition: transform 0.2s ease;
+}
+.consent-switch input:checked + .track { background: var(--accent); }
+.consent-switch input:checked + .track .thumb { transform: translateX(18px); }
+.consent-switch input:focus-visible + .track { outline: 3px solid var(--focus); outline-offset: 2px; }
 
 .toast {
   position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%) translateY(10px);
@@ -282,6 +289,4 @@ footer.site {
 
 @media (prefers-reduced-motion: reduce) {
   .btn-primary, .pay-btn, .toast, .plan .cta { transition: none; }
-  .dodge-close { transition: none !important; }
-  .pay-row.pulse { animation: none; }
 }

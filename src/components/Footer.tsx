@@ -1,4 +1,4 @@
-import logoIcon from "../assets/logo-icon.png";
+import logoIcon from "../assets/react-icon.svg";
 import { FOOTER_JOKES } from "../data/plans";
 
 interface FooterProps {

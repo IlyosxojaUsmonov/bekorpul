@@ -17,7 +17,7 @@ export default function CompareTable() {
             <tr key={row.feature}>
               <td className="feat-name">{row.feature}</td>
               {row.values.map((v, i) => (
-                <td key={i} className={v !== "—" && i >= 2 ? "yes" : undefined}>
+                <td key={i} className={v !== "—" && i >= 3 ? "yes" : undefined}>
                   {v}
                 </td>
               ))}

@@ -5,12 +5,12 @@ const FEATURES = [
     desc: "Ishlab chiqarish uchun resurs kerak emas — shuning uchun cheklov ham yo'q.",
   },
   {
-    icon: "\u{1F512}",
+    icon: "∅",
     title: "100% xavfsizlik",
     desc: "Hech kim o'g'irlay olmaydi — o'g'irlaydigan narsa yo'q.",
   },
   {
-    icon: "⚡",
+    icon: "→",
     title: "Tezkor yetkazib berish",
     desc: "Darhol yetib boradi, chunki yo'lda yo'qoladigan narsa yo'q.",
   },

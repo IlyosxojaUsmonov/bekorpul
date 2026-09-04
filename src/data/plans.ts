@@ -13,7 +13,7 @@ export const PLANS: Plan[] = [
   {
     id: "start",
     name: "Start",
-    price: 19000,
+    price: 10000,
     per: "/oy",
     desc: "Shaxsiy foydalanish uchun",
     feats: ["Kengaytirilgan hech narsa", "Raqamli sertifikat", "Email orqali javobsizlik"],
@@ -21,19 +21,32 @@ export const PLANS: Plan[] = [
   {
     id: "biznes",
     name: "Biznes",
-    price: 59000,
+    price: 20000,
     per: "/oy",
-    desc: "O'sib borayotgan hech narsa uchun",
-    popular: true,
-    feats: ["Cheksiz hech narsa", "Oltin ramkali sertifikat", "Shaxsiy menejer (band)", "Ustuvor yo'qlik"],
+    desc: "Kichik jamoalar uchun hech narsa",
+    feats: ["Ko'proq hech narsa", "Kumush ramkali sertifikat", "Shaxsiy menejer (band)"],
   },
   {
-    id: "korp",
-    name: "Korporativ",
-    price: null,
-    per: "",
-    desc: "Yirik kompaniyalar uchun",
-    feats: ["Cheksiz hech narsa, VIP", "Notarial (hazil) sertifikat", "Narxni o'zingiz belgilang"],
+    id: "maksimal",
+    name: "Maksimal",
+    price: 30000,
+    per: "/oy",
+    desc: "O'sib borayotgan hech narsa uchun",
+    feats: ["Deyarli cheksiz hech narsa", "Oltin ramkali sertifikat", "Ustuvor yo'qlik"],
+  },
+  {
+    id: "premium",
+    name: "Premium",
+    price: 59000,
+    per: "/oy",
+    desc: "Eng dabdabali hech narsa uchun",
+    popular: true,
+    feats: [
+      "Cheksiz hech narsa, VIP",
+      "Notarial (hazil) sertifikat",
+      "Shaxsiy menejer (band, lekin VIP band)",
+      "Shaxsiylashtirilgan 'Hech narsa' sertifikati",
+    ],
   },
 ];
 
@@ -53,10 +66,10 @@ export const PAY_CARDS: PayCard[] = [
 ];
 
 export const COMPARE_ROWS: Array<{ feature: string; values: string[] }> = [
-  { feature: "Hech narsa hajmi", values: ["Standart", "Kengaytirilgan", "Cheksiz", "Cheksiz"] },
-  { feature: "Sertifikat", values: ["—", "Raqamli", "Oltin ramka", "Notarial (hazil)"] },
-  { feature: "Menejer", values: ["—", "Email (javobsiz)", "Shaxsiy (band)", "VIP (mavjud emas)"] },
-  { feature: "Bekor qilish", values: ["Istalgan vaqt", "Istalgan vaqt", "Istalgan vaqt", "Istalgan vaqt"] },
+  { feature: "Hech narsa hajmi", values: ["Standart", "Kengaytirilgan", "Ko'proq", "Deyarli cheksiz", "Cheksiz"] },
+  { feature: "Sertifikat", values: ["—", "Raqamli", "Kumush ramka", "Oltin ramka", "Notarial (hazil)"] },
+  { feature: "Menejer", values: ["—", "Email (javobsiz)", "Shaxsiy (band)", "Shaxsiy (band)", "VIP (mavjud emas)"] },
+  { feature: "Bekor qilish", values: ["Istalgan vaqt", "Istalgan vaqt", "Istalgan vaqt", "Istalgan vaqt", "Istalgan vaqt"] },
 ];
 
 export const FAQ_ITEMS: Array<{ q: string; a: string }> = [

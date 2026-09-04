@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import type { Plan } from "../types";
 import { PAY_CARDS } from "../data/plans";
 import { copyText, formatSom } from "../utils";
@@ -9,41 +9,8 @@ interface CheckoutModalProps {
   onClose: () => void;
 }
 
-const DODGE_TEASES = [
-  "Ushlab bo'lmaydi 😏",
-  "Bu yoqqa emas!",
-  "Deyarli tutdingiz...",
-  "Yo'q-yo'q 🙈",
-  "Bu oyna qo'lda yopilmaydi 🙃",
-  "Harakat davom etsin!",
-  "Sekinroq...",
-  "Rahmat, urinish uchun",
-];
-
-// 30 soniyadan keyin shu savollar ketma-ket, tobora shubha bilan so'raladi —
-// oxirgisiga "Ha" deyilgach oyna haqiqatan yopiladi.
-const CONFIRM_QUESTIONS = [
-  "Pul yubordingizmi?",
-  "Aniqmi?",
-  "Rostanmi?",
-  "Ishonchingiz komilmi?",
-  "Haqiqatan-chinakamiga-a?",
-];
-
-function randomDodgePos() {
-  return { left: Math.random() * 80, top: Math.random() * 68 };
-}
-
 export default function CheckoutModal({ plan, onToast, onClose }: CheckoutModalProps) {
-  const [copiedCard, setCopiedCard] = useState<string | null>(null);
-  const [pos, setPos] = useState<{ left: number; top: number } | null>(null);
-  const [isEvading, setIsEvading] = useState(false);
-  const [teaseIdx, setTeaseIdx] = useState(0);
-  const [pulseCard, setPulseCard] = useState(false);
-  const [confirmStep, setConfirmStep] = useState(-1);
-  const [finished, setFinished] = useState(false);
-  const firstCardRef = useRef<HTMLDivElement>(null);
-  const confirmRef = useRef<HTMLDivElement>(null);
+  const [consent, setConsent] = useState(false);
 
   const priceLabel =
     plan.price === null
@@ -52,56 +19,12 @@ export default function CheckoutModal({ plan, onToast, onClose }: CheckoutModalP
 
   const payInstruction =
     plan.price === null
-      ? "Nusxalagach, ilovada xohlagan miqdorni o'tkazing."
-      : `Nusxalagach, ilovada aynan ${formatSom(plan.price)} so'm${plan.per} o'tkazing.`;
+      ? "Nusxalagach, xohlagan miqdorni o'tkazing."
+      : `Nusxalagach, aynan ${formatSom(plan.price)} so'm${plan.per} o'tkazing.`;
 
-  // × tugma birinchi marta "o'ynay" boshlagach, u to'xtovsiz atrofga sakrab yuraveradi
-  useEffect(() => {
-    if (!isEvading) return;
-    const id = setInterval(() => setPos(randomDodgePos()), 700);
-    return () => clearInterval(id);
-  }, [isEvading]);
-
-  // 30 soniyadan keyin tasdiqlash so'rovlari boshlanadi
-  useEffect(() => {
-    const id = setTimeout(() => setConfirmStep(0), 30000);
-    return () => clearTimeout(id);
-  }, []);
-
-  useEffect(() => {
-    if (confirmStep < 0) return;
-    confirmRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-  }, [confirmStep]);
-
-  function handleConfirmYes() {
-    if (confirmStep >= CONFIRM_QUESTIONS.length - 1) {
-      setFinished(true);
-      setTimeout(onClose, 1500);
-      return;
-    }
-    setConfirmStep((s) => s + 1);
-  }
-
-  async function handleCopy(cardNumber: string, label: string) {
-    try {
-      await copyText(cardNumber);
-      onToast(`${label} raqami nusxalandi ✓`);
-      setCopiedCard(cardNumber);
-      setTimeout(() => setCopiedCard((c) => (c === cardNumber ? null : c)), 1800);
-    } catch {
-      onToast(`Nusxalab bo'lmadi — qo'lda kiriting: ${cardNumber}`);
-    }
-  }
-
-  function evadeClose() {
-    setIsEvading(true);
-    setPos(randomDodgePos());
-    const nextIdx = (teaseIdx + 1) % DODGE_TEASES.length;
-    setTeaseIdx(nextIdx);
-    firstCardRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-    setPulseCard(true);
-    setTimeout(() => setPulseCard(false), 900);
-    onToast(DODGE_TEASES[nextIdx]);
+  function handleTransfer(cardNumber: string, label: string) {
+    copyText(cardNumber).catch(() => {});
+    onToast(`${label} raqami nusxalandi — pul o'tkazishga tayyor`);
   }
 
   return (
@@ -111,56 +34,46 @@ export default function CheckoutModal({ plan, onToast, onClose }: CheckoutModalP
           <h3 id="checkoutTitle" className="serif">
             {plan.name} tarifi
           </h3>
-          <button
-            className="close dodge-close"
-            aria-label="Yopish (agar uddalasangiz)"
-            style={pos ? { left: `${pos.left}%`, top: `${pos.top}%`, right: "auto" } : undefined}
-            onMouseEnter={evadeClose}
-            onClick={evadeClose}
-          >
+          <button className="close" aria-label="Yopish" onClick={onClose}>
             &times;
           </button>
         </div>
-        {isEvading && <p className="escape-hint mono">💸 Pul tashlasangiz — yopiladi</p>}
-        <p className="selected-price mono">{priceLabel}</p>
 
-        {PAY_CARDS.map((card, i) => (
-          <div
-            className={"pay-row" + (i === 0 && pulseCard ? " pulse" : "")}
-            key={card.label}
-            ref={i === 0 ? firstCardRef : undefined}
-          >
-            <div className="pay-top">
-              <span className="pay-label mono">{card.label}</span>
-              <span className="pay-holder">{card.holder}</span>
-            </div>
-            <span className="pay-number mono">{card.displayNumber}</span>
-            <button
-              className={"pay-btn" + (copiedCard === card.number ? " done" : "")}
-              onClick={() => handleCopy(card.number, card.label)}
-            >
-              {copiedCard === card.number ? "Nusxalandi ✓" : "Raqamni nusxalash"}
-            </button>
+        {!consent ? (
+          <div className="consent-gate">
+            <p className="consent-badge mono">Kichkina bir chin gap</p>
+            <p className="consent-text">
+              Ochig'ini aytsak: <strong>{priceLabel.split(" evaziga")[0]}</strong> to'lasangiz, sizga hech
+              narsa yubormaymiz — mahsulot ham, xizmat ham yo'q, faqat shu qiziq sahifaning o'zi bor. Buni
+              faqat kayfiyat va hazil uchun qilamiz, xohlasangiz davom eting, xohlasangiz shu yerda to'xtang.
+            </p>
+            <label className="consent-switch">
+              <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
+              <span className="track" aria-hidden="true">
+                <span className="thumb" />
+              </span>
+              <span className="consent-label">Xo'p, baribir davom etaman — chunki yoqib qoldi</span>
+            </label>
           </div>
-        ))}
+        ) : (
+          <>
+            <p className="selected-price mono">{priceLabel}</p>
 
-        <p className="disclaimer">
-          Bu oyna qo'lda yopilmaydi. {payInstruction}
-        </p>
-
-        {confirmStep >= 0 && (
-          <div className="confirm-gauntlet" ref={confirmRef}>
-            {finished ? (
-              <p className="mono">Rahmat! 🙏</p>
-            ) : (
-              <>
-                <p className="mono">{CONFIRM_QUESTIONS[confirmStep]}</p>
-                <button className="pay-btn" onClick={handleConfirmYes}>
-                  Ha
+            {PAY_CARDS.map((card) => (
+              <div className="pay-row" key={card.label}>
+                <div className="pay-top">
+                  <span className="pay-label mono">{card.label}</span>
+                  <span className="pay-holder">{card.holder}</span>
+                </div>
+                <span className="pay-number mono">{card.displayNumber}</span>
+                <button className="pay-btn" onClick={() => handleTransfer(card.number, card.label)}>
+                  Pul o'tkazish
                 </button>
-              </>
-            )}
-          </div>
+              </div>
+            ))}
+
+            <p className="disclaimer">{payInstruction} Yodda tuting — bu yerda haqiqiy mahsulot yo'q, sof kayfiyat uchun.</p>
+          </>
         )}
       </div>
     </div>

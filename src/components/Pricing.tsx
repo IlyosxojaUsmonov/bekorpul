@@ -14,7 +14,7 @@ export default function Pricing({ onSelectPlan }: PricingProps) {
         <div className="section-head">
           <div className="kicker">Tariflar</div>
           <h2 className="serif">Har kimga mos &mdash; hech narsa.</h2>
-          <p>To'rtta tarif. To'rttasida ham natija bir xil. Farqi &mdash; qanchalik dabdabali hech narsa olishingizda.</p>
+          <p>Beshta tarif. Beshtasida ham natija bir xil. Farqi &mdash; qanchalik dabdabali hech narsa olishingizda.</p>
         </div>
 
         <div className="price-grid">
