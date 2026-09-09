@@ -1,53 +1,49 @@
 import { useEffect, useState } from "react";
-import type { Plan } from "./types";
-import { PLANS } from "./data/plans";
+import type { Plan, GiftInfo } from "./types";
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
 import Features from "./components/Features";
 import Pricing from "./components/Pricing";
 import Faq from "./components/Faq";
 import Footer from "./components/Footer";
-import CheckoutModal from "./components/CheckoutModal";
 import Toast from "./components/Toast";
+import CheckoutModal from "./components/CheckoutModal";
+import { GIFT_PLAN } from "./data/plans";
 import { useToast } from "./hooks/useToast";
-
-const CHECKOUT_KEY = "bekorpul_checkout_plan";
-
-function restoreCheckoutPlan(): Plan | null {
-  try {
-    const savedId = localStorage.getItem(CHECKOUT_KEY);
-    return savedId ? PLANS.find((p) => p.id === savedId) ?? null : null;
-  } catch {
-    return null;
-  }
-}
+import { consumePendingCertificate, generateCertificate } from "./lib/certificate";
 
 export default function App() {
-  const [checkoutPlan, setCheckoutPlan] = useState<Plan | null>(restoreCheckoutPlan);
   const { message, showToast } = useToast();
+  const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
+  const [giftInfo, setGiftInfo] = useState<GiftInfo | null>(null);
 
-  // Sahifa yangilansa (refresh) ham oyna ochiq qolishi uchun tanlangan
-  // tarifni saqlab qo'yamiz. Oyna faqat tasdiqlash so'rovlari zanjiridan
-  // (CheckoutModal ichida) o'tilgach yopiladi — shundagina kalit tozalanadi.
+  // Payme'dan qaytgandan so'ng — to'lovga ketishdan oldin saqlangan sertifikat bo'lsa, shuni chiqarib beramiz.
   useEffect(() => {
-    try {
-      if (checkoutPlan) localStorage.setItem(CHECKOUT_KEY, checkoutPlan.id);
-      else localStorage.removeItem(CHECKOUT_KEY);
-    } catch {
-      // localStorage mavjud emas — refresh'da oyna tiklanmaydi, lekin sahifa ishlayveradi
+    const pending = consumePendingCertificate();
+    if (pending) {
+      generateCertificate(pending);
+      showToast("Xush kelibsiz! Sertifikatingiz PDF sifatida yuklab olindi.");
     }
-  }, [checkoutPlan]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function scrollTo(id: string) {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   function handleSelectPlan(plan: Plan) {
-    if (plan.free) {
-      showToast("Tabriklaymiz! Sizda allaqachon hech narsa bor. Hisobingiz faollashtirildi.");
-      return;
-    }
-    setCheckoutPlan(plan);
+    setGiftInfo(null);
+    setSelectedPlan(plan);
+  }
+
+  function handleGift(info: GiftInfo) {
+    setGiftInfo(info);
+    setSelectedPlan(GIFT_PLAN);
+  }
+
+  function handleCloseCheckout() {
+    setSelectedPlan(null);
+    setGiftInfo(null);
   }
 
   return (
@@ -55,12 +51,17 @@ export default function App() {
       <Nav onScrollTo={scrollTo} />
       <Hero onScrollTo={scrollTo} />
       <Features />
-      <Pricing onSelectPlan={handleSelectPlan} />
+      <Pricing onSelectPlan={handleSelectPlan} onGift={handleGift} />
       <Faq />
       <Footer onJoke={showToast} />
 
-      {checkoutPlan && (
-        <CheckoutModal plan={checkoutPlan} onToast={showToast} onClose={() => setCheckoutPlan(null)} />
+      {selectedPlan && (
+        <CheckoutModal
+          plan={selectedPlan}
+          giftInfo={giftInfo ?? undefined}
+          onToast={showToast}
+          onClose={handleCloseCheckout}
+        />
       )}
 
       <Toast message={message} />

@@ -1,3 +1,6 @@
+/** Sertifikat dizayni darajasi. "none" bo'lsa — PDF chiqarilmaydi. */
+export type CertLevel = "none" | "digital" | "silver" | "gold" | "notarial";
+
 export interface Plan {
   id: string;
   name: string;
@@ -8,6 +11,7 @@ export interface Plan {
   free?: boolean;
   popular?: boolean;
   feats: string[];
+  certLevel: CertLevel;
 }
 
 export interface PayCard {
@@ -15,4 +19,11 @@ export interface PayCard {
   holder: string;
   number: string; // faqat raqamlar, nusxalash uchun
   displayNumber: string; // bo'shliqlar bilan, ko'rsatish uchun
+}
+
+export interface GiftInfo {
+  friendName: string;
+  /** "@" bilan boshlanadi */
+  friendTelegram: string;
+  fromName?: string;
 }

@@ -4,40 +4,43 @@ export const PLANS: Plan[] = [
   {
     id: "bepul",
     name: "Bepul",
-    price: 0,
+    price: 1099,
     per: "/oy",
     desc: "Sinab ko'rish uchun",
-    free: true,
     feats: ["Standart hajmda hech narsa", "Reklamasiz emas", "Sertifikatsiz"],
+    certLevel: "none",
   },
   {
     id: "start",
     name: "Start",
-    price: 10000,
+    price: 1599,
     per: "/oy",
     desc: "Shaxsiy foydalanish uchun",
     feats: ["Kengaytirilgan hech narsa", "Raqamli sertifikat", "Email orqali javobsizlik"],
+    certLevel: "digital",
   },
   {
     id: "biznes",
     name: "Biznes",
-    price: 20000,
+    price: 5999,
     per: "/oy",
     desc: "Kichik jamoalar uchun hech narsa",
     feats: ["Ko'proq hech narsa", "Kumush ramkali sertifikat", "Shaxsiy menejer (band)"],
+    certLevel: "silver",
   },
   {
     id: "maksimal",
     name: "Maksimal",
-    price: 30000,
+    price: 9999,
     per: "/oy",
     desc: "O'sib borayotgan hech narsa uchun",
     feats: ["Deyarli cheksiz hech narsa", "Oltin ramkali sertifikat", "Ustuvor yo'qlik"],
+    certLevel: "gold",
   },
   {
     id: "premium",
     name: "Premium",
-    price: 59000,
+    price: 14999,
     per: "/oy",
     desc: "Eng dabdabali hech narsa uchun",
     popular: true,
@@ -47,8 +50,19 @@ export const PLANS: Plan[] = [
       "Shaxsiy menejer (band, lekin VIP band)",
       "Shaxsiylashtirilgan 'Hech narsa' sertifikati",
     ],
+    certLevel: "notarial",
   },
 ];
+
+export const GIFT_PLAN: Plan = {
+  id: "gift",
+  name: "Do'stga sovg'a",
+  price: 7999,
+  per: "",
+  desc: "Do'stingiz uchun ham pulingizni bekorga sarflang.",
+  feats: [],
+  certLevel: "digital",
+};
 
 export const PAY_CARDS: PayCard[] = [
   {

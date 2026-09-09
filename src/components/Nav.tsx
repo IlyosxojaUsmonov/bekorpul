@@ -1,4 +1,4 @@
-import logoIcon from "../assets/react-icon.svg";
+import logoIcon from "../assets/logo-icon.png";
 
 interface NavProps {
   onScrollTo: (id: string) => void;

@@ -1,13 +1,15 @@
 import { PLANS } from "../data/plans";
-import type { Plan } from "../types";
+import type { Plan, GiftInfo } from "../types";
 import PlanCard from "./PlanCard";
+import GiftCard from "./GiftCard";
 import CompareTable from "./CompareTable";
 
 interface PricingProps {
   onSelectPlan: (plan: Plan) => void;
+  onGift: (info: GiftInfo) => void;
 }
 
-export default function Pricing({ onSelectPlan }: PricingProps) {
+export default function Pricing({ onSelectPlan, onGift }: PricingProps) {
   return (
     <section id="pricing">
       <div className="wrap">
@@ -21,6 +23,7 @@ export default function Pricing({ onSelectPlan }: PricingProps) {
           {PLANS.map((plan) => (
             <PlanCard key={plan.id} plan={plan} onSelect={onSelectPlan} />
           ))}
+          <GiftCard onGift={onGift} />
         </div>
 
         <CompareTable />
