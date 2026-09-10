@@ -38,11 +38,3 @@ export interface Product {
   format: string;
   price: number;
 }
-
-export interface ProductBundle {
-  title: string;
-  description: string;
-  originalPrice: number;
-  price: number;
-  discountPercent: number;
-}

@@ -30,6 +30,7 @@ section.products-section {
 
 .products-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
 @media (min-width: 760px) { .products-grid { grid-template-columns: repeat(3, 1fr); } }
+.products-grid.single { grid-template-columns: 1fr; max-width: 360px; margin: 0 auto; }
 
 .product-card {
   background: #14171b; border: 1px solid #262b31; border-radius: 14px;
@@ -65,26 +66,4 @@ section.products-section {
 .product-card .p-sample {
   background: none; border: none; color: #8b929a; font-size: 12.5px;
   text-decoration: underline; cursor: not-allowed; padding: 2px; text-align: left;
-}
-
-.bundle-block {
-  margin-top: 32px; background: #191d22; border: 1.5px dashed #d9ac52; border-radius: 14px;
-  padding: 28px 24px; display: flex; flex-direction: column; gap: 18px;
-}
-@media (min-width: 760px) {
-  .bundle-block { flex-direction: row; align-items: center; justify-content: space-between; gap: 28px; }
-}
-.bundle-text h3 { margin: 0 0 8px; font-family: "Fraunces", serif; font-size: 20px; }
-.bundle-text p { margin: 0; color: #c3c8cd; font-size: 13.5px; max-width: 46ch; line-height: 1.6; }
-.bundle-price { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; flex-shrink: 0; }
-.bundle-price .old { color: #8b929a; text-decoration: line-through; font-size: 14px; }
-.bundle-price .new { font-size: 28px; color: #d9ac52; }
-.bundle-price .discount {
-  font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
-  color: #14181c; background: #d9ac52; padding: 3px 8px; border-radius: 999px;
-}
-.bundle-cta button {
-  font-family: inherit; font-weight: 600; font-size: 14px; padding: 12px 22px;
-  border-radius: 8px; border: none; background: #d9ac52; color: #14181c;
-  cursor: not-allowed; opacity: 0.85; flex-shrink: 0;
 }
