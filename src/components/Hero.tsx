@@ -7,11 +7,10 @@ export default function Hero({ onScrollTo }: HeroProps) {
     <header className="hero">
       <div className="wrap hero-grid">
         <div>
-          <span className="eyebrow">&#9679; Payme va Click orqali</span>
           <h1 className="headline serif">
-            Hech narsani <em>sanoat</em> darajasida yetkazamiz.
+            Pulingizni sarflashning eng <em>qulay</em> yo'li.
           </h1>
-          <p className="sub">Pulingizni olamiz. Evaziga &mdash; hech narsa. Shaffof va halol.</p>
+          <p className="sub">Tarifni tanlang, kartangiz orqali bir necha soniyada to'lang. Tez, shaffof va halol.</p>
           <div className="hero-ctas">
             <button className="btn btn-primary" onClick={() => onScrollTo("pricing")}>
               Tariflarni ko'rish

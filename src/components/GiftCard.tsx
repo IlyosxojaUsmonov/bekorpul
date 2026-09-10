@@ -35,16 +35,18 @@ export default function GiftCard({ onGift }: GiftCardProps) {
   }
 
   return (
-    <div className="plan gift-plan">
-      <span className="pop">DO'STGA SOVG'A</span>
-      <h3>Hech narsa sovg'a qiling</h3>
-      <div className="amount serif">
-        {formatSom(GIFT_PLAN.price as number)}
-        <span className="per"> so'm</span>
+    <div className="gift-banner">
+      <div className="gift-banner-text">
+        <h3>
+          Hech narsa sovg'a qiling
+          <span className="gift-banner-price mono">
+            {formatSom(GIFT_PLAN.price as number)} so'm
+          </span>
+        </h3>
+        <p>Do'stingiz uchun ham pulingizni bekorga sarflang. U buni hech kutmagan bo'ladi.</p>
       </div>
-      <p className="desc">Do'stingiz uchun ham pulingizni bekorga sarflang. U buni hech kutmagan bo'ladi.</p>
 
-      <form className="gift-form" onSubmit={handleSubmit} noValidate>
+      <form className="gift-banner-form" onSubmit={handleSubmit} noValidate>
         <input
           className="field"
           value={friendName}
@@ -66,12 +68,10 @@ export default function GiftCard({ onGift }: GiftCardProps) {
           placeholder="Kimdan (ixtiyoriy)"
           aria-label="Sizning ismingiz"
         />
-
-        {error && <p className="field-error">{error}</p>}
-
         <button type="submit" className="cta">
           Sovg'a qilish
         </button>
+        {error && <p className="field-error">{error}</p>}
       </form>
     </div>
   );

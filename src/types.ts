@@ -27,3 +27,22 @@ export interface GiftInfo {
   friendTelegram: string;
   fromName?: string;
 }
+
+export interface Product {
+  id: string;
+  title: string;
+  description: string;
+  audience: string;
+  scope: string[];
+  size: string;
+  format: string;
+  price: number;
+}
+
+export interface ProductBundle {
+  title: string;
+  description: string;
+  originalPrice: number;
+  price: number;
+  discountPercent: number;
+}

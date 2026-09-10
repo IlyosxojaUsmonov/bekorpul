@@ -23,8 +23,9 @@ export default function Pricing({ onSelectPlan, onGift }: PricingProps) {
           {PLANS.map((plan) => (
             <PlanCard key={plan.id} plan={plan} onSelect={onSelectPlan} />
           ))}
-          <GiftCard onGift={onGift} />
         </div>
+
+        <GiftCard onGift={onGift} />
 
         <CompareTable />
       </div>

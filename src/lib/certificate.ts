@@ -2,8 +2,8 @@ import { jsPDF, GState } from "jspdf";
 import { formatSom } from "../utils";
 import type { CertLevel } from "../types";
 
-const SERIAL_KEY = "bekorpul_cert_serial";
-const PENDING_KEY = "bekorpul_pending_cert";
+const SERIAL_KEY = "sarfla_cert_serial";
+const PENDING_KEY = "sarfla_pending_cert";
 
 function nextSerial(): number {
   const raw = localStorage.getItem(SERIAL_KEY);
@@ -45,7 +45,7 @@ function drawWatermark(doc: jsPDF, w: number, h: number, accent: RGB) {
   setText(doc, accent);
   doc.setFont("times", "bold");
   doc.setFontSize(92);
-  doc.text("BEKORPUL", w / 2, h / 2 + 8, { align: "center", angle: 27 });
+  doc.text("SARFLA", w / 2, h / 2 + 8, { align: "center", angle: 27 });
   doc.restoreGraphicsState();
 }
 
@@ -148,7 +148,7 @@ function drawSeal(doc: jsPDF, cx: number, cy: number, level: Exclude<CertLevel, 
   doc.setFont("times", "bolditalic");
   doc.setFontSize(level === "digital" ? 6 : 7.2);
   const label =
-    level === "notarial" ? "NOTARIAL" : level === "gold" ? "OLTIN" : level === "silver" ? "KUMUSH" : "BEKORPUL";
+    level === "notarial" ? "NOTARIAL" : level === "gold" ? "OLTIN" : level === "silver" ? "KUMUSH" : "SARFLA";
   doc.text(label, cx, cy - 1.4, { align: "center" });
   doc.setFont("times", "italic");
   doc.setFontSize(5.4);
@@ -188,10 +188,10 @@ export function generateCertificate(input: CertificateInput): void {
   setText(doc, palette.ink);
   doc.setFont("times", "bold");
   doc.setFontSize(13);
-  doc.text("BekorPul", 22, 26);
+  doc.text("Sarfla", 22, 26);
   doc.setFont("times", "normal");
   doc.setFontSize(7.5);
-  doc.text("®", 22 + doc.getTextWidth("BekorPul") + 1.5, 22.3);
+  doc.text("®", 22 + doc.getTextWidth("Sarfla") + 1.5, 22.3);
 
   // tariff pill, top-center
   doc.setFont("helvetica", "bold");
@@ -326,7 +326,7 @@ export function generateCertificate(input: CertificateInput): void {
   );
 
   const safeName = input.recipientName.trim().replace(/\s+/g, "-").toLowerCase() || "sertifikat";
-  doc.save(`bekorpul-sertifikat-${safeName}-${serial}.pdf`);
+  doc.save(`sarfla-sertifikat-${safeName}-${serial}.pdf`);
 }
 
 /** To'lov Payme'ga o'tkazilganda ma'lumot saqlab qo'yiladi — foydalanuvchi qaytganda shundan PDF chiqariladi. */

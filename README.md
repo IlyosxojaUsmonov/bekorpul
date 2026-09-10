@@ -1,4 +1,4 @@
-# BekorPul
+# Sarfla
 
 "Hech narsa" sotadigan hazil-mutoyibali sayt — React + TypeScript + Vite asosida.
 

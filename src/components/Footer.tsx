@@ -3,9 +3,10 @@ import { FOOTER_JOKES } from "../data/plans";
 
 interface FooterProps {
   onJoke: (msg: string) => void;
+  onScrollTo: (id: string) => void;
 }
 
-export default function Footer({ onJoke }: FooterProps) {
+export default function Footer({ onJoke, onScrollTo }: FooterProps) {
   return (
     <footer className="site">
       <div className="wrap">
@@ -13,10 +14,10 @@ export default function Footer({ onJoke }: FooterProps) {
           <div>
             <div className="brand">
               <span className="brand-mark">
-                <img src={logoIcon} alt="BekorPul logotipi" />
+                <img src={logoIcon} alt="Sarfla logotipi" />
               </span>
               <span className="logo">
-                BekorPul<sup>&reg;</sup>
+                Sarfla<sup>&reg;</sup>
               </span>
             </div>
             <p className="blurb">Hech narsani professional darajada yetkazib beruvchi platforma.</p>
@@ -25,9 +26,20 @@ export default function Footer({ onJoke }: FooterProps) {
           <div className="foot-col">
             <h4>Mahsulot</h4>
             <ul>
-              <li><a href="#features">Xususiyatlar</a></li>
               <li><a href="#pricing">Tariflar</a></li>
+              <li><a href="#features">Xususiyatlar</a></li>
               <li><a href="#faq">Savollar</a></li>
+              <li>
+                <a
+                  href="#mahsulotlar"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onScrollTo("mahsulotlar");
+                  }}
+                >
+                  Mahsulotlar
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -46,7 +58,7 @@ export default function Footer({ onJoke }: FooterProps) {
         </div>
 
         <div className="foot-bottom">
-          <span>&copy; 2026 BekorPul. Barcha huquqlar &mdash; bo'sh.</span>
+          <span>&copy; 2026 Sarfla. Barcha huquqlar &mdash; bo'sh.</span>
           <span>Norasmiy hazil loyihasi &middot; to'lovlar shaxsiy kartalarga tushadi</span>
         </div>
       </div>

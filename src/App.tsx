@@ -8,6 +8,7 @@ import Faq from "./components/Faq";
 import Footer from "./components/Footer";
 import Toast from "./components/Toast";
 import CheckoutModal from "./components/CheckoutModal";
+import Products from "./components/Products";
 import { GIFT_PLAN } from "./data/plans";
 import { useToast } from "./hooks/useToast";
 import { consumePendingCertificate, generateCertificate } from "./lib/certificate";
@@ -50,10 +51,11 @@ export default function App() {
     <>
       <Nav onScrollTo={scrollTo} />
       <Hero onScrollTo={scrollTo} />
-      <Features />
       <Pricing onSelectPlan={handleSelectPlan} onGift={handleGift} />
+      <Features />
+      <Products />
       <Faq />
-      <Footer onJoke={showToast} />
+      <Footer onJoke={showToast} onScrollTo={scrollTo} />
 
       {selectedPlan && (
         <CheckoutModal

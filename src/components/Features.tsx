@@ -22,7 +22,7 @@ export default function Features() {
       <div className="wrap">
         <div className="section-head">
           <div className="kicker">Xususiyatlar</div>
-          <h2 className="serif">Nega aynan BekorPul?</h2>
+          <h2 className="serif">Nega aynan Sarfla?</h2>
           <p>Ustunlarimiz mavjud emas, lekin ular haqida gapirishni yaxshi ko'ramiz.</p>
         </div>
         <div className="feat-grid">

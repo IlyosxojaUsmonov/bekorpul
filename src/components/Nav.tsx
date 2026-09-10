@@ -10,18 +10,21 @@ export default function Nav({ onScrollTo }: NavProps) {
       <div className="wrap">
         <div className="brand">
           <span className="brand-mark">
-            <img src={logoIcon} alt="BekorPul logotipi" />
+            <img src={logoIcon} alt="Sarfla logotipi" />
           </span>
           <span className="logo">
-            BekorPul<sup>&reg;</sup>
+            Sarfla<sup>&reg;</sup>
           </span>
         </div>
         <div className="nav-links">
+          <a href="#pricing" onClick={(e) => { e.preventDefault(); onScrollTo("pricing"); }}>
+            Tariflar
+          </a>
           <a href="#features" onClick={(e) => { e.preventDefault(); onScrollTo("features"); }}>
             Xususiyatlar
           </a>
-          <a href="#pricing" onClick={(e) => { e.preventDefault(); onScrollTo("pricing"); }}>
-            Tariflar
+          <a href="#mahsulotlar" onClick={(e) => { e.preventDefault(); onScrollTo("mahsulotlar"); }}>
+            Mahsulotlar
           </a>
           <a href="#faq" onClick={(e) => { e.preventDefault(); onScrollTo("faq"); }}>
             Savollar

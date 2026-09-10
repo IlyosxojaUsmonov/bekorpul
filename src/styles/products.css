@@ -1,0 +1,90 @@
+/* Mahsulotlar bo'limi — asosiy hazil bo'limlaridan mustaqil, doim to'q fon */
+section.products-section {
+  background: #0b0d10;
+  color: #eef0f2;
+  border-top: 1px solid #262b31;
+  padding: 64px 0;
+}
+.products-section .serif { font-family: "Fraunces", Georgia, serif; }
+.products-section .mono { font-family: "JetBrains Mono", ui-monospace, Menlo, monospace; font-variant-numeric: tabular-nums; }
+
+.products-section .section-head { max-width: 56ch; margin: 0 0 28px; }
+.products-section .section-head .kicker {
+  font-size: 12.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  color: #d9ac52; margin-bottom: 10px;
+}
+.products-section .section-head h2 { font-size: clamp(26px, 4vw, 34px); margin: 0 0 10px; text-wrap: balance; }
+.products-section .section-head p { color: #c3c8cd; font-size: 15.5px; line-height: 1.6; margin: 0; }
+
+.guarantee {
+  display: flex; flex-direction: column; gap: 8px; align-items: flex-start;
+  background: #191d22; border: 1px solid #262b31; border-radius: 12px;
+  padding: 16px 18px; margin-bottom: 32px;
+}
+@media (min-width: 640px) { .guarantee { flex-direction: row; align-items: center; gap: 14px; } }
+.guarantee-badge {
+  flex-shrink: 0; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+  color: #14181c; background: #d9ac52; padding: 4px 10px; border-radius: 999px;
+}
+.guarantee p { margin: 0; font-size: 13.5px; color: #c3c8cd; line-height: 1.5; }
+
+.products-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+@media (min-width: 760px) { .products-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.product-card {
+  background: #14171b; border: 1px solid #262b31; border-radius: 14px;
+  padding: 22px 20px; display: flex; flex-direction: column; gap: 12px;
+}
+.product-card h3 { font-family: "Fraunces", serif; font-size: 18px; margin: 0; line-height: 1.3; }
+.product-card .p-desc { font-size: 13.5px; color: #c3c8cd; line-height: 1.55; margin: 0; }
+.product-card .p-price { margin-top: auto; font-size: 24px; color: #eef0f2; }
+
+.product-card .p-actions { display: flex; flex-direction: column; gap: 8px; }
+.product-card .p-buy {
+  width: 100%; font-family: inherit; font-weight: 600; font-size: 14px;
+  padding: 11px; border-radius: 8px; border: none; background: #d9ac52; color: #14181c;
+  cursor: not-allowed; opacity: 0.85;
+}
+.product-card .p-more {
+  width: 100%; font-family: inherit; font-weight: 600; font-size: 13px;
+  padding: 9px; border-radius: 8px; border: 1.5px solid #262b31; background: transparent; color: #c3c8cd;
+  cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.product-card .p-more:hover { border-color: #d9ac52; color: #eef0f2; }
+.product-card .p-more .chev { color: #d9ac52; font-weight: 700; }
+
+.product-card .p-details {
+  display: flex; flex-direction: column; gap: 10px; padding-top: 12px; border-top: 1px dashed #262b31;
+}
+.product-card .p-row { font-size: 12.5px; color: #8b929a; line-height: 1.5; }
+.product-card .p-row strong { color: #eef0f2; font-weight: 600; }
+.product-card .p-scope { list-style: none; margin: -4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: #c3c8cd; }
+.product-card .p-scope li { display: flex; gap: 8px; align-items: baseline; }
+.product-card .p-scope li .dot { color: #d9ac52; flex-shrink: 0; }
+.product-card .p-meta { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 12px; color: #8b929a; }
+.product-card .p-sample {
+  background: none; border: none; color: #8b929a; font-size: 12.5px;
+  text-decoration: underline; cursor: not-allowed; padding: 2px; text-align: left;
+}
+
+.bundle-block {
+  margin-top: 32px; background: #191d22; border: 1.5px dashed #d9ac52; border-radius: 14px;
+  padding: 28px 24px; display: flex; flex-direction: column; gap: 18px;
+}
+@media (min-width: 760px) {
+  .bundle-block { flex-direction: row; align-items: center; justify-content: space-between; gap: 28px; }
+}
+.bundle-text h3 { margin: 0 0 8px; font-family: "Fraunces", serif; font-size: 20px; }
+.bundle-text p { margin: 0; color: #c3c8cd; font-size: 13.5px; max-width: 46ch; line-height: 1.6; }
+.bundle-price { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; flex-shrink: 0; }
+.bundle-price .old { color: #8b929a; text-decoration: line-through; font-size: 14px; }
+.bundle-price .new { font-size: 28px; color: #d9ac52; }
+.bundle-price .discount {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+  color: #14181c; background: #d9ac52; padding: 3px 8px; border-radius: 999px;
+}
+.bundle-cta button {
+  font-family: inherit; font-weight: 600; font-size: 14px; padding: 12px 22px;
+  border-radius: 8px; border: none; background: #d9ac52; color: #14181c;
+  cursor: not-allowed; opacity: 0.85; flex-shrink: 0;
+}
