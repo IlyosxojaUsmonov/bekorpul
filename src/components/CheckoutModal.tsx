@@ -24,8 +24,8 @@ export default function CheckoutModal({ plan, giftInfo, onToast, onClose }: Chec
 
   const priceLabel =
     plan.price === null
-      ? "Miqdorni o'zingiz belgilaysiz — evaziga hech narsa"
-      : `${formatSom(plan.price)} so'm${plan.per} evaziga hech narsa`;
+      ? "Miqdorni o'zingiz belgilaysiz — evaziga sarflash"
+      : `${formatSom(plan.price)} so'm${plan.per} evaziga sarflash`;
 
   const payInstruction =
     plan.price === null
@@ -68,8 +68,8 @@ export default function CheckoutModal({ plan, giftInfo, onToast, onClose }: Chec
             <p className="consent-badge mono">Kichkina bir chin gap</p>
             <p className="consent-text">
               Ochig'ini aytsak: <strong>{priceLabel.split(" evaziga")[0]}</strong> to'lasangiz,{" "}
-              {giftInfo ? `${giftInfo.friendName}ga` : "sizga"} hech narsa yubormaymiz — mahsulot ham, xizmat ham
-              yo'q, faqat shu qiziq sahifaning o'zi bor. Buni faqat kayfiyat va hazil uchun qilamiz, xohlasangiz
+              {giftInfo ? `${giftInfo.friendName}ga` : "sizga"} sarflashdan boshqasini yubormaymiz — mahsulot ham,
+              xizmat ham yo'q, faqat shu qiziq sahifaning o'zi bor. Buni faqat kayfiyat va hazil uchun qilamiz, xohlasangiz
               davom eting, xohlasangiz shu yerda to'xtang.
             </p>
 

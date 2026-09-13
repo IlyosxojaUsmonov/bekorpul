@@ -75,6 +75,8 @@ nav.top .wrap { display: flex; align-items: center; justify-content: space-betwe
   box-shadow: 0 1px 3px var(--shadow); flex-shrink: 0;
 }
 .brand-mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.brand-mark--full { width: auto; height: 36px; padding: 5px 10px; border-radius: 8px; }
+.brand-mark--full img { width: auto; height: 100%; }
 
 .nav-links { display: none; gap: 28px; font-size: 14px; color: var(--ink-soft); }
 @media (min-width: 760px) { .nav-links { display: flex; } }
@@ -138,20 +140,6 @@ section { padding: 64px 0; border-top: 1px solid var(--line); }
 .section-head .kicker { font-size: 12.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
 .section-head h2 { font-family: "Fraunces", serif; font-size: clamp(26px, 4vw, 34px); margin: 0 0 10px; text-wrap: balance; }
 .section-head p { color: var(--ink-soft); font-size: 15.5px; line-height: 1.6; margin: 0; }
-
-/* features */
-.feat-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
-@media (min-width: 700px) { .feat-grid { grid-template-columns: repeat(3, 1fr); } }
-.feat {
-  padding: 22px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface);
-}
-.feat .ico {
-  width: 34px; height: 34px; border-radius: 9px; background: var(--accent-soft);
-  display: flex; align-items: center; justify-content: center; margin-bottom: 14px;
-  font-size: 16px; color: var(--accent-ink);
-}
-.feat h3 { font-size: 16.5px; margin: 0 0 6px; }
-.feat p { font-size: 14px; color: var(--ink-soft); line-height: 1.55; margin: 0; }
 
 /* pricing */
 .price-grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
@@ -223,17 +211,6 @@ table.cmp td.yes { color: var(--accent); font-weight: 700; }
 
 .consent-name { margin: 0 0 16px; text-align: left; }
 .gift-note { font-size: 13px; color: var(--ink-soft); margin: -8px 0 16px; }
-
-/* faq */
-.faq-item { border-bottom: 1px solid var(--line); }
-.faq-item summary {
-  cursor: pointer; padding: 18px 0; font-size: 15.5px; font-weight: 600;
-  display: flex; justify-content: space-between; align-items: center; list-style: none;
-}
-.faq-item summary::-webkit-details-marker { display: none; }
-.faq-item summary::after { content: "+"; font-size: 20px; color: var(--muted); font-weight: 400; }
-.faq-item[open] summary::after { content: "\2212"; }
-.faq-item p { margin: 0 0 20px; color: var(--ink-soft); font-size: 14.5px; line-height: 1.6; max-width: 60ch; }
 
 footer.site {
   background: var(--surface-2); border-top: 1px solid var(--line); padding: 52px 0 26px;

@@ -257,14 +257,14 @@ export function generateCertificate(input: CertificateInput): void {
   let y = 90 + bodyLines.length * 6.6 + 6;
   doc.setFont("times", "italic");
   doc.setFontSize(10.5);
-  doc.text("Tabriklaymiz — siz hech narsa yutmadingiz.", cx, y, { align: "center" });
+  doc.text("Tabriklaymiz — siz sarflashda g'olib chiqdingiz.", cx, y, { align: "center" });
   y += 10;
 
   if (input.giftTelegram) {
     doc.setFont("times", "normal");
     doc.setFontSize(9.5);
     const fromLabel = input.giftFrom ? input.giftFrom : "Kimdir";
-    const giftLine = `Sizga ${fromLabel} tomonidan hech narsa sovg'a qilindi — ${input.giftTelegram} orqali ulashildi.`;
+    const giftLine = `Sizga ${fromLabel} tomonidan sarflash sovg'a qilindi — ${input.giftTelegram} orqali ulashildi.`;
     const giftLines = doc.splitTextToSize(giftLine, w - 120);
     doc.text(giftLines, cx, y, { align: "center" });
     y += giftLines.length * 5.2;

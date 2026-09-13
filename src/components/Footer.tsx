@@ -1,4 +1,4 @@
-import logoIcon from "../assets/logo-icon.png";
+import logo from "../assets/logo-full.png";
 import { FOOTER_JOKES } from "../data/plans";
 
 interface FooterProps {
@@ -13,22 +13,17 @@ export default function Footer({ onJoke, onScrollTo }: FooterProps) {
         <div className="foot-grid">
           <div>
             <div className="brand">
-              <span className="brand-mark">
-                <img src={logoIcon} alt="Sarfla logotipi" />
-              </span>
-              <span className="logo">
-                Sarfla<sup>&reg;</sup>
+              <span className="brand-mark brand-mark--full">
+                <img src={logo} alt="Sarfla logotipi" />
               </span>
             </div>
-            <p className="blurb">Hech narsani professional darajada yetkazib beruvchi platforma.</p>
+            <p className="blurb">Sarflashni professional darajada yetkazib beruvchi platforma.</p>
           </div>
 
           <div className="foot-col">
             <h4>Mahsulot</h4>
             <ul>
               <li><a href="#pricing">Tariflar</a></li>
-              <li><a href="#features">Xususiyatlar</a></li>
-              <li><a href="#faq">Savollar</a></li>
               <li>
                 <a
                   href="#mahsulotlar"

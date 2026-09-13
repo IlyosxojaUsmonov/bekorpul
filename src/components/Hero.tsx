@@ -15,7 +15,7 @@ export default function Hero({ onScrollTo }: HeroProps) {
             <button className="btn btn-primary" onClick={() => onScrollTo("pricing")}>
               Tariflarni ko'rish
             </button>
-            <button className="btn btn-ghost" onClick={() => onScrollTo("faq")}>
+            <button className="btn btn-ghost" onClick={() => onScrollTo("mahsulotlar")}>
               Qanday ishlaydi?
             </button>
           </div>

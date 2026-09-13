@@ -34,11 +34,40 @@ section.products-section {
 
 .product-card {
   background: #14171b; border: 1px solid #262b31; border-radius: 14px;
-  padding: 22px 20px; display: flex; flex-direction: column; gap: 12px;
+  padding: 22px 20px; display: flex; flex-direction: column; gap: 12px; position: relative;
 }
 .product-card h3 { font-family: "Fraunces", serif; font-size: 18px; margin: 0; line-height: 1.3; }
 .product-card .p-desc { font-size: 13.5px; color: #c3c8cd; line-height: 1.55; margin: 0; }
-.product-card .p-price { margin-top: auto; font-size: 24px; color: #eef0f2; }
+.product-card .p-actions { margin-top: auto; }
+
+.p-soon-badge {
+  position: absolute; top: 18px; right: 18px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.05em;
+  text-transform: uppercase; color: #14181c; background: #d9ac52; padding: 4px 10px; border-radius: 999px;
+}
+
+.p-cover {
+  width: 68px; height: 90px; margin-bottom: 2px; flex-shrink: 0;
+}
+.p-cover .book {
+  position: relative; width: 100%; height: 100%; box-sizing: border-box;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  background: linear-gradient(135deg, #22262d 0%, #14171b 65%);
+  border: 1px solid #333a42; border-radius: 3px 7px 7px 3px;
+  box-shadow: 5px 6px 14px rgba(0, 0, 0, 0.5), inset -1px 0 0 rgba(255, 255, 255, 0.03);
+  transform: perspective(300px) rotateY(-16deg);
+}
+.p-cover .book::before {
+  content: ""; position: absolute; right: -4px; top: 4px; bottom: 4px; width: 4px;
+  background: repeating-linear-gradient(180deg, #e8e4da, #e8e4da 2px, #cfc9ba 2px, #cfc9ba 3px);
+  border-radius: 0 2px 2px 0;
+}
+.p-cover .book .tag {
+  background: #d9ac52; color: #14181c; font-size: 9px; font-weight: 800; letter-spacing: 0.04em;
+  padding: 2px 7px; border-radius: 3px;
+}
+.p-cover .book .lines { width: 60%; display: flex; flex-direction: column; gap: 4px; }
+.p-cover .book .lines span { display: block; height: 2px; background: #3a4048; border-radius: 1px; }
+.p-cover .book .lines span:last-child { width: 70%; }
 
 .product-card .p-actions { display: flex; flex-direction: column; gap: 8px; }
 .product-card .p-buy {

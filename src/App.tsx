@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import type { Plan, GiftInfo } from "./types";
 import Nav from "./components/Nav";
 import Hero from "./components/Hero";
-import Features from "./components/Features";
 import Pricing from "./components/Pricing";
-import Faq from "./components/Faq";
 import Footer from "./components/Footer";
 import Toast from "./components/Toast";
 import CheckoutModal from "./components/CheckoutModal";
@@ -52,9 +50,7 @@ export default function App() {
       <Nav onScrollTo={scrollTo} />
       <Hero onScrollTo={scrollTo} />
       <Pricing onSelectPlan={handleSelectPlan} onGift={handleGift} />
-      <Features />
       <Products />
-      <Faq />
       <Footer onJoke={showToast} onScrollTo={scrollTo} />
 
       {selectedPlan && (

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import type { Product } from "../types";
-import { formatSom } from "../utils";
 
 interface ProductCardProps {
   product: Product;
@@ -11,9 +10,19 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div className="product-card">
+      <span className="p-soon-badge">Tez orada</span>
+      <div className="p-cover" aria-hidden="true">
+        <div className="book">
+          <span className="tag">PDF</span>
+          <span className="lines">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </div>
+      </div>
       <h3>{product.title}</h3>
       <p className="p-desc">{product.description}</p>
-      <div className="p-price serif">{formatSom(product.price)} so'm</div>
 
       <div className="p-actions">
         <button className="p-buy" disabled title="Tez orada faollashadi">

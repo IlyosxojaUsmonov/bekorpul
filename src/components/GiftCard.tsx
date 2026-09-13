@@ -38,7 +38,7 @@ export default function GiftCard({ onGift }: GiftCardProps) {
     <div className="gift-banner">
       <div className="gift-banner-text">
         <h3>
-          Hech narsa sovg'a qiling
+          Sarflashni sovg'a qiling
           <span className="gift-banner-price mono">
             {formatSom(GIFT_PLAN.price as number)} so'm
           </span>
