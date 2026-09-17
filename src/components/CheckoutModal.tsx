@@ -4,8 +4,7 @@ import { PAY_CARDS } from "../data/plans";
 import { copyText, formatSom } from "../utils";
 import { storePendingCertificate } from "../lib/certificate";
 
-// Vaqtincha: Payme'ning umumiy sahifasiga o'tkazadi. Payme'dan rasmiy
-// merchant API olingach, shu joyni haqiqiy to'lov havolasiga almashtirish kerak.
+// Payme merchant API ulanmaguncha foydalanuvchini Payme'ning umumiy sahifasiga olib boradi.
 const PAYME_URL = "https://payme.uz";
 
 interface CheckoutModalProps {
@@ -15,7 +14,12 @@ interface CheckoutModalProps {
   onClose: () => void;
 }
 
-export default function CheckoutModal({ plan, giftInfo, onToast, onClose }: CheckoutModalProps) {
+export default function CheckoutModal({
+  plan,
+  giftInfo,
+  onToast,
+  onClose,
+}: CheckoutModalProps) {
   const [consent, setConsent] = useState(false);
   const [buyerName, setBuyerName] = useState("");
 
@@ -48,15 +52,28 @@ export default function CheckoutModal({ plan, giftInfo, onToast, onClose }: Chec
       });
     }
 
-    window.location.href = PAYME_URL;
+    const paymeWindow = window.open(PAYME_URL, "_blank", "noopener,noreferrer");
+    if (!paymeWindow) {
+      window.location.href = PAYME_URL;
+    } else {
+      paymeWindow.focus();
+      onClose();
+    }
   }
 
   return (
     <div className="overlay open">
-      <div className="sheet" role="dialog" aria-modal="true" aria-labelledby="checkoutTitle">
+      <div
+        className="sheet"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="checkoutTitle"
+      >
         <div className="sheet-head">
           <h3 id="checkoutTitle" className="serif">
-            {giftInfo ? `${plan.name} — ${giftInfo.friendName}ga` : `${plan.name} tarifi`}
+            {giftInfo
+              ? `${plan.name} — ${giftInfo.friendName}ga`
+              : `${plan.name} tarifi`}
           </h3>
           <button className="close" aria-label="Yopish" onClick={onClose}>
             &times;
@@ -67,10 +84,12 @@ export default function CheckoutModal({ plan, giftInfo, onToast, onClose }: Chec
           <div className="consent-gate">
             <p className="consent-badge mono">Kichkina bir chin gap</p>
             <p className="consent-text">
-              Ochig'ini aytsak: <strong>{priceLabel.split(" evaziga")[0]}</strong> to'lasangiz,{" "}
-              {giftInfo ? `${giftInfo.friendName}ga` : "sizga"} sarflashdan boshqasini yubormaymiz — mahsulot ham,
-              xizmat ham yo'q, faqat shu qiziq sahifaning o'zi bor. Buni faqat kayfiyat va hazil uchun qilamiz, xohlasangiz
-              davom eting, xohlasangiz shu yerda to'xtang.
+              Ochig'ini aytsak:{" "}
+              <strong>{priceLabel.split(" evaziga")[0]}</strong> to'lasangiz,{" "}
+              {giftInfo ? `${giftInfo.friendName}ga` : "sizga"} sarflashdan
+              boshqasini yubormaymiz — mahsulot ham, xizmat ham yo'q, faqat shu
+              qiziq sahifaning o'zi bor. Buni faqat kayfiyat va hazil uchun
+              qilamiz, xohlasangiz davom eting, xohlasangiz shu yerda to'xtang.
             </p>
 
             {!giftInfo && plan.certLevel !== "none" && (
@@ -95,16 +114,23 @@ export default function CheckoutModal({ plan, giftInfo, onToast, onClose }: Chec
               <span className="track" aria-hidden="true">
                 <span className="thumb" />
               </span>
-              <span className="consent-label">Xo'p, baribir davom etaman — chunki yoqib qoldi</span>
+              <span className="consent-label">
+                Xo'p, baribir davom etaman — chunki yoqib qoldi
+              </span>
             </label>
-            {!nameReady && <p className="field-hint">Davom etish uchun ismingizni kiriting.</p>}
+            {!nameReady && (
+              <p className="field-hint">
+                Davom etish uchun ismingizni kiriting.
+              </p>
+            )}
           </div>
         ) : (
           <>
             <p className="selected-price mono">{priceLabel}</p>
             {giftInfo && (
               <p className="gift-note">
-                Sertifikat <strong>{giftInfo.friendName}</strong> ({giftInfo.friendTelegram}) nomiga chiqariladi.
+                Sertifikat <strong>{giftInfo.friendName}</strong> (
+                {giftInfo.friendTelegram}) nomiga chiqariladi.
               </p>
             )}
 
@@ -115,14 +141,18 @@ export default function CheckoutModal({ plan, giftInfo, onToast, onClose }: Chec
                   <span className="pay-holder">{card.holder}</span>
                 </div>
                 <span className="pay-number mono">{card.displayNumber}</span>
-                <button className="pay-btn" onClick={() => handleTransfer(card.number, card.label)}>
+                <button
+                  className="pay-btn"
+                  onClick={() => handleTransfer(card.number, card.label)}
+                >
                   Pul o'tkazish
                 </button>
               </div>
             ))}
 
             <p className="disclaimer">
-              {payInstruction} Yodda tuting — bu yerda haqiqiy mahsulot yo'q, sof kayfiyat uchun.
+              {payInstruction} Yodda tuting — bu yerda haqiqiy mahsulot yo'q,
+              sof kayfiyat uchun.
             </p>
           </>
         )}

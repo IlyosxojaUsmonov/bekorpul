@@ -9,25 +9,44 @@ import CheckoutModal from "./components/CheckoutModal";
 import Products from "./components/Products";
 import { GIFT_PLAN } from "./data/plans";
 import { useToast } from "./hooks/useToast";
-import { consumePendingCertificate, generateCertificate } from "./lib/certificate";
+import {
+  consumePendingCertificate,
+  generateCertificate,
+} from "./lib/certificate";
 
 export default function App() {
   const { message, showToast } = useToast();
   const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
   const [giftInfo, setGiftInfo] = useState<GiftInfo | null>(null);
 
-  // Payme'dan qaytgandan so'ng — to'lovga ketishdan oldin saqlangan sertifikat bo'lsa, shuni chiqarib beramiz.
-  useEffect(() => {
+  function downloadPendingCertificate() {
     const pending = consumePendingCertificate();
-    if (pending) {
-      generateCertificate(pending);
-      showToast("Xush kelibsiz! Sertifikatingiz PDF sifatida yuklab olindi.");
+    if (!pending) return;
+
+    generateCertificate(pending);
+    showToast("Xush kelibsiz! Sertifikatingiz PDF sifatida yuklab olindi.");
+  }
+
+  // Payme yangi tabda ochiladi; foydalanuvchi shu sahifaga qaytganda saqlangan sertifikatni chiqaramiz.
+  useEffect(() => {
+    downloadPendingCertificate();
+
+    function handleVisibilityChange() {
+      if (document.visibilityState === "visible") downloadPendingCertificate();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("pageshow", downloadPendingCertificate);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("pageshow", downloadPendingCertificate);
+    };
   }, []);
 
   function scrollTo(id: string) {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document
+      .getElementById(id)
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
   function handleSelectPlan(plan: Plan) {
