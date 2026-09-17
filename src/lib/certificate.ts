@@ -329,7 +329,7 @@ export function generateCertificate(input: CertificateInput): void {
   doc.save(`sarfla-sertifikat-${safeName}-${serial}.pdf`);
 }
 
-/** To'lov Payme'ga o'tkazilganda ma'lumot saqlab qo'yiladi — foydalanuvchi qaytganda shundan PDF chiqariladi. */
+/** Sertifikat xaridi boshlanganda ma'lumot saqlanadi va to'lovdan keyin PDF chiqariladi. */
 export function storePendingCertificate(input: CertificateInput): void {
   localStorage.setItem(PENDING_KEY, JSON.stringify(input));
 }

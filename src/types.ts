@@ -14,20 +14,6 @@ export interface Plan {
   certLevel: CertLevel;
 }
 
-export interface PayCard {
-  label: string;
-  holder: string;
-  number: string; // faqat raqamlar, nusxalash uchun
-  displayNumber: string; // bo'shliqlar bilan, ko'rsatish uchun
-}
-
-export interface GiftInfo {
-  friendName: string;
-  /** "@" bilan boshlanadi */
-  friendTelegram: string;
-  fromName?: string;
-}
-
 export interface Product {
   id: string;
   title: string;

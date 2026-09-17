@@ -1,4 +1,4 @@
-import type { Plan, PayCard } from "../types";
+import type { Plan } from "../types";
 
 export const PLANS: Plan[] = [
   {
@@ -63,21 +63,6 @@ export const GIFT_PLAN: Plan = {
   feats: [],
   certLevel: "digital",
 };
-
-export const PAY_CARDS: PayCard[] = [
-  {
-    label: "UZCARD",
-    holder: "Ilyosxoja Usmonov",
-    number: "5614683516161965",
-    displayNumber: "5614 6835 1616 1965",
-  },
-  {
-    label: "HUMO",
-    holder: "Ilyosxoja Usmonov",
-    number: "9860600431639035",
-    displayNumber: "9860 6004 3163 9035",
-  },
-];
 
 export const COMPARE_ROWS: Array<{ feature: string; values: string[] }> = [
   { feature: "Sarflash hajmi", values: ["Standart", "Kengaytirilgan", "Ko'proq", "Deyarli cheksiz", "Cheksiz"] },

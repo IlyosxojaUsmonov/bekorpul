@@ -2,11 +2,6 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 import { GIFT_PLAN } from "../data/plans";
 import { formatSom } from "../utils";
-import type { GiftInfo } from "../types";
-
-interface GiftCardProps {
-  onGift: (info: GiftInfo) => void;
-}
 
 function normalizeTelegram(value: string): string {
   const trimmed = value.trim();
@@ -14,7 +9,7 @@ function normalizeTelegram(value: string): string {
   return trimmed.startsWith("@") ? trimmed : `@${trimmed}`;
 }
 
-export default function GiftCard({ onGift }: GiftCardProps) {
+export default function GiftCard() {
   const [friendName, setFriendName] = useState("");
   const [friendTelegram, setFriendTelegram] = useState("");
   const [fromName, setFromName] = useState("");
@@ -31,7 +26,9 @@ export default function GiftCard({ onGift }: GiftCardProps) {
     }
 
     setError(null);
-    onGift({ friendName: name, friendTelegram: tg, fromName: fromName.trim() || undefined });
+    document
+      .getElementById("mahsulotlar")
+      ?.scrollIntoView({ behavior: "smooth" });
   }
 
   return (
@@ -43,7 +40,10 @@ export default function GiftCard({ onGift }: GiftCardProps) {
             {formatSom(GIFT_PLAN.price as number)} so'm
           </span>
         </h3>
-        <p>Do'stingiz uchun ham pulingizni bekorga sarflang. U buni hech kutmagan bo'ladi.</p>
+        <p>
+          Do'stingiz uchun ham pulingizni bekorga sarflang. U buni hech kutmagan
+          bo'ladi.
+        </p>
       </div>
 
       <form className="gift-banner-form" onSubmit={handleSubmit} noValidate>

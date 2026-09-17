@@ -9,6 +9,19 @@ npm install
 npm run dev
 ```
 
+## InPAY va himoyalangan PDF
+
+To'lov serveri merchant tokenni frontendga chiqarmaydi. `.env.example` nusxasini `.env` qilib, `INPAY_MERCHANT_ID`, `INPAY_MERCHANT_TOKEN` va production `PUBLIC_ORIGIN` qiymatlarini kiriting. Keyin frontend va serverni alohida ishga tushiring:
+
+```bash
+npm run server
+npm run dev
+```
+
+Production'da HTTPS reverse proxy `/api` yo'llarini `server.mjs` ishlayotgan portga uzatishi kerak. InPAY kabinetida callback URL sifatida `https://sarfla.uz/api/payments/webhook` ni, return URL sifatida server yaratadigan URL'larni whitelist qiling.
+
+Sotiladigan PDF'ni `private/products/react-noldan.pdf` nomi bilan joylang. U `public/` ichida bo'lmasligi kerak: server faqat inPAY webhook'i `success` bo'lgan va summa mos kelgan order uchun faylni beradi. `return_url` ma'lumotlari o'zi to'lov isboti sifatida qabul qilinmaydi.
+
 Brauzerda `http://localhost:5173` ochiladi.
 
 ## Build (production uchun)
@@ -27,7 +40,7 @@ Natija `dist/` papkasida chiqadi — bu papkani istalgan static hosting'ga (Netl
 
 ```
 src/
-  components/   — UI qismlari (Nav, Hero, Pricing, CheckoutModal, ...)
+  components/   — UI qismlari (Nav, Hero, Pricing, ProductCard, ...)
   data/plans.ts — tariflar, kartalar, ilovalar ro'yxati (shu yerdan tahrirlang)
   hooks/        — localStorage statistika, nusxalash, ilovadan qaytishni aniqlash
   utils.ts      — yordamchi funksiyalar (nusxalash, ilova ochish)
@@ -37,15 +50,5 @@ src/
 ## Kartalarni/tariflarni o'zgartirish
 
 `src/data/plans.ts` faylida:
-- `PAY_CARDS` — Uzcard/Humo raqamlaringiz
+
 - `PLANS` — tariflar va narxlar
-- `PAY_APPS` — Payme/Click ilovalarining Play Store paket nomlari
-
-## Muhim eslatma: to'lovlar haqida
-
-Bu sayt **backend'siz** ishlaydi. Shu sababli:
-
-- "Bu qurilmada N marta sotib olingan" hisoblagichi faqat shu brauzerga tegishli — barcha tashrif buyuruvchilar uchun umumiy/haqiqiy statistika emas.
-- Karta raqami nusxalanadi va Payme/Click ilovasi ochiladi (Android'da ilovaning haqiqiy paket nomi orqali to'g'ridan-to'g'ri ochishga urinadi), lekin **to'lov miqdorini avtomatik kiritib bo'lmaydi** — buni foydalanuvchi ilova ichida qo'lda kiritadi.
-
-Agar avtomatik summa bilan haqiqiy checkout (masalan, "Biznes tarifini bosdim — Payme'da 59 000 so'm tayyor chiqdi") kerak bo'lsa, bu Payme/Click bilan rasmiy merchant (kassa) shartnomasi tuzish, yuridik shaxs (YaTT/MChJ) ochish va ularning checkout API'siga ulanadigan backend server yozishni talab qiladi — bu alohida, kattaroq loyiha.
