@@ -6,7 +6,7 @@ export const PLANS: Plan[] = [
     name: "Bepul",
     price: 1099,
     per: "/oy",
-    inpayToken: "btn_10166af487a60816185d",
+    free: true,
     desc: "Sinab ko'rish uchun",
     feats: ["Standart hajmda sarflash", "Reklamasiz emas", "Sertifikatsiz"],
     certLevel: "none",

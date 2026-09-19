@@ -1,35 +1,11 @@
 import { useState } from "react";
-import type { FormEvent } from "react";
 import { GIFT_PLAN } from "../data/plans";
 import { formatSom } from "../utils";
-
-function normalizeTelegram(value: string): string {
-  const trimmed = value.trim();
-  if (!trimmed) return "";
-  return trimmed.startsWith("@") ? trimmed : `@${trimmed}`;
-}
 
 export default function GiftCard() {
   const [friendName, setFriendName] = useState("");
   const [friendTelegram, setFriendTelegram] = useState("");
   const [fromName, setFromName] = useState("");
-  const [error, setError] = useState<string | null>(null);
-
-  function handleSubmit(e: FormEvent) {
-    e.preventDefault();
-    const name = friendName.trim();
-    const tg = normalizeTelegram(friendTelegram);
-
-    if (!name || tg.length < 2) {
-      setError("Ism va Telegram username kiriting.");
-      return;
-    }
-
-    setError(null);
-    document
-      .getElementById("mahsulotlar")
-      ?.scrollIntoView({ behavior: "smooth" });
-  }
 
   return (
     <div className="gift-banner">
@@ -46,7 +22,7 @@ export default function GiftCard() {
         </p>
       </div>
 
-      <form className="gift-banner-form" onSubmit={handleSubmit} noValidate>
+      <div className="gift-banner-form">
         <input
           className="field"
           value={friendName}
@@ -68,13 +44,9 @@ export default function GiftCard() {
           placeholder="Kimdan (ixtiyoriy)"
           aria-label="Sizning ismingiz"
         />
-        <button type="submit" className="cta">
-          Sovg'a qilish
-        </button>
-        {error && <p className="field-error">{error}</p>}
-      </form>
+      </div>
       <div className="gift-banner-payment">
-        <inpay-button token={GIFT_PLAN.inpayToken!} />
+        <inpay-button token="btn_60a52ee3fea7ac9371d7" />
       </div>
     </div>
   );

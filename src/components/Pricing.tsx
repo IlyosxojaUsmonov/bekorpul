@@ -3,7 +3,11 @@ import PlanCard from "./PlanCard";
 import GiftCard from "./GiftCard";
 import CompareTable from "./CompareTable";
 
-export default function Pricing() {
+interface PricingProps {
+  onCertificateTest: () => void;
+}
+
+export default function Pricing({ onCertificateTest }: PricingProps) {
   return (
     <section id="pricing">
       <div className="wrap">
@@ -14,6 +18,13 @@ export default function Pricing() {
             Beshta tarif. Beshtasida ham natija bir xil. Farqi &mdash; qanchalik
             dabdabali sarflashingizda.
           </p>
+          <button
+            className="btn btn-ghost certificate-test-button"
+            type="button"
+            onClick={onCertificateTest}
+          >
+            Sertifikatni sinash
+          </button>
         </div>
 
         <div className="price-grid">

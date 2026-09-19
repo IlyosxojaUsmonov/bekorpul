@@ -209,6 +209,107 @@ nav.top .wrap {
   border-color: var(--ink);
 }
 
+.certificate-test-button {
+  margin-top: 18px;
+}
+
+.certificate-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgb(20 24 28 / 56%);
+}
+
+.certificate-modal {
+  position: relative;
+  width: min(100%, 520px);
+  padding: 30px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: 0 24px 70px rgb(20 24 28 / 24%);
+}
+
+.certificate-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.certificate-kicker {
+  margin: 0 0 8px;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.certificate-modal h2 {
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-size: 32px;
+}
+
+.certificate-plan {
+  margin: 8px 0 20px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.certificate-message {
+  margin: 0 0 22px;
+  color: var(--ink-soft);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.certificate-name {
+  display: grid;
+  gap: 7px;
+  color: var(--ink-soft);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.certificate-name input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 12px;
+  border: 1.5px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+}
+
+.certificate-name input:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
+.certificate-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.certificate-actions .btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
 /* hero */
 
 header.hero {
@@ -302,7 +403,7 @@ h1.headline em {
 
 .mock-stats {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: 10px;
   margin-bottom: 16px;
 }
@@ -400,6 +501,18 @@ section {
   justify-content: center;
 }
 
+.plan .inpay-checkout {
+  width: 100%;
+  min-height: 46px;
+  margin-top: auto;
+  align-items: center;
+}
+
+.plan .inpay-checkout inpay-button {
+  display: block;
+  width: 100%;
+}
+
 .plan {
   background: var(--surface);
   border: 1px solid var(--line);
@@ -450,6 +563,13 @@ section {
   font-size: 13px;
   color: var(--muted);
   min-height: 32px;
+}
+
+.plan .trial-note {
+  margin: auto 0 0;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .plan ul {
@@ -597,7 +717,15 @@ table.cmp td.yes {
 .gift-banner-payment {
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-shrink: 0;
+  min-width: 150px;
+  min-height: 46px;
+}
+
+.gift-banner-payment inpay-button {
+  display: block;
+  width: 100%;
 }
 
 @media (min-width: 760px) {

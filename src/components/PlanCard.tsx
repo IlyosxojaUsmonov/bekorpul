@@ -11,7 +11,11 @@ export default function PlanCard({ plan }: PlanCardProps) {
       {plan.popular && <span className="pop">ENG MASHHUR</span>}
       <h3>{plan.name}</h3>
       <div className="amount serif">
-        {plan.price === null ? (
+        {plan.free ? (
+          <>
+            0<span className="per"> 00 so'm</span>
+          </>
+        ) : plan.price === null ? (
           <>
             O'zingiz<span className="per"> belgilaysiz</span>
           </>
@@ -31,6 +35,7 @@ export default function PlanCard({ plan }: PlanCardProps) {
           </li>
         ))}
       </ul>
+      {plan.free && <p className="trial-note">Sinab ko'rishingiz mumkin.</p>}
       {plan.inpayToken && (
         <div className="inpay-checkout">
           <inpay-button token={plan.inpayToken} />
