@@ -1,4 +1,3 @@
-import { useState } from "react";
 import type { Plan } from "../types";
 import { formatSom } from "../utils";
 
@@ -7,39 +6,6 @@ interface PlanCardProps {
 }
 
 export default function PlanCard({ plan }: PlanCardProps) {
-  const [isStartingPayment, setIsStartingPayment] = useState(false);
-  const [paymentError, setPaymentError] = useState<string | null>(null);
-
-  async function startPayment() {
-    setIsStartingPayment(true);
-    setPaymentError(null);
-
-    try {
-      const response = await fetch("/api/payments/create", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productId: plan.id }),
-      });
-      const result = (await response.json()) as {
-        pay_url?: string;
-        error?: string;
-      };
-
-      if (!response.ok || !result.pay_url) {
-        throw new Error(result.error || "To'lovni boshlash imkoni bo'lmadi.");
-      }
-
-      window.location.href = result.pay_url;
-    } catch (error) {
-      setPaymentError(
-        error instanceof Error
-          ? error.message
-          : "To'lovni boshlash imkoni bo'lmadi.",
-      );
-      setIsStartingPayment(false);
-    }
-  }
-
   return (
     <div className={"plan" + (plan.popular ? " featured" : "")}>
       {plan.popular && <span className="pop">ENG MASHHUR</span>}
@@ -65,22 +31,10 @@ export default function PlanCard({ plan }: PlanCardProps) {
           </li>
         ))}
       </ul>
-      <button
-        className="cta"
-        type="button"
-        onClick={startPayment}
-        disabled={isStartingPayment}
-      >
-        {isStartingPayment
-          ? "Yuklanmoqda..."
-          : plan.free
-            ? "Bepul boshlash"
-            : "Tanlash"}
-      </button>
-      {paymentError && (
-        <p className="field-error" role="alert">
-          {paymentError}
-        </p>
+      {plan.inpayToken && (
+        <div className="inpay-checkout">
+          <inpay-button token={plan.inpayToken} />
+        </div>
       )}
     </div>
   );

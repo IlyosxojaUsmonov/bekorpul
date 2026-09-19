@@ -9,18 +9,9 @@ npm install
 npm run dev
 ```
 
-## InPAY va himoyalangan PDF
+## InPAY
 
-To'lov serveri merchant tokenni frontendga chiqarmaydi. `.env.example` nusxasini `.env` qilib, `INPAY_MERCHANT_ID`, `INPAY_MERCHANT_TOKEN` va production `PUBLIC_ORIGIN` qiymatlarini kiriting. Keyin frontend va serverni alohida ishga tushiring:
-
-```bash
-npm run server
-npm run dev
-```
-
-Production'da HTTPS reverse proxy `/api` yo'llarini `server.mjs` ishlayotgan portga uzatishi kerak. InPAY kabinetida callback URL sifatida `https://sarfla.uz/api/payments/webhook` ni, return URL sifatida server yaratadigan URL'larni whitelist qiling.
-
-Sotiladigan PDF'ni `private/products/react-noldan.pdf` nomi bilan joylang. U `public/` ichida bo'lmasligi kerak: server faqat inPAY webhook'i `success` bo'lgan va summa mos kelgan order uchun faylni beradi. `return_url` ma'lumotlari o'zi to'lov isboti sifatida qabul qilinmaydi.
+To'lovlar inPAY vidjeti orqali amalga oshiriladi. `widget.js` `index.html` ichida bir marta ulanadi, summa esa inPAY serverida saqlanadi. Har bir tarif kartasida tegishli `inpay-button` tokeni ko'rsatiladi.
 
 Brauzerda `http://localhost:5173` ochiladi.
 

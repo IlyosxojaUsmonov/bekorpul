@@ -7,36 +7,6 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const [open, setOpen] = useState(false);
-  const [isStartingPayment, setIsStartingPayment] = useState(false);
-  const [paymentError, setPaymentError] = useState<string | null>(null);
-
-  async function startPayment() {
-    setIsStartingPayment(true);
-    setPaymentError(null);
-
-    try {
-      const response = await fetch("/api/payments/create", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ productId: product.id }),
-      });
-      const result = (await response.json()) as {
-        pay_url?: string;
-        error?: string;
-      };
-      if (!response.ok || !result.pay_url) {
-        throw new Error(result.error || "To'lovni boshlash imkoni bo'lmadi.");
-      }
-      window.location.href = result.pay_url;
-    } catch (error) {
-      setPaymentError(
-        error instanceof Error
-          ? error.message
-          : "To'lovni boshlash imkoni bo'lmadi.",
-      );
-      setIsStartingPayment(false);
-    }
-  }
 
   return (
     <div className="product-card">
@@ -54,20 +24,6 @@ export default function ProductCard({ product }: ProductCardProps) {
       <p className="p-desc">{product.description}</p>
 
       <div className="p-actions">
-        <button
-          className="p-buy"
-          onClick={startPayment}
-          disabled={isStartingPayment}
-        >
-          {isStartingPayment
-            ? "Yuklanmoqda..."
-            : `${product.price.toLocaleString("uz-UZ")} so'm — sotib olish`}
-        </button>
-        {paymentError && (
-          <p className="payment-error" role="alert">
-            {paymentError}
-          </p>
-        )}
         <button
           className="p-more"
           onClick={() => setOpen((v) => !v)}

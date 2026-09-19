@@ -7,6 +7,7 @@ export interface Plan {
   /** Narx so'mda. `null` bo'lsa — foydalanuvchi o'zi kiritadigan (Korporativ) tarif. */
   price: number | null;
   per: string;
+  inpayToken?: string;
   desc: string;
   free?: boolean;
   popular?: boolean;
