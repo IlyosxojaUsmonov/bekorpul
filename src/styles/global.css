@@ -594,6 +594,12 @@ table.cmp td.yes {
   flex-shrink: 0;
 }
 
+.gift-banner-payment {
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
 @media (min-width: 760px) {
   .gift-banner-form {
     flex-direction: row;
@@ -611,6 +617,9 @@ table.cmp td.yes {
   }
   .gift-banner-form .field-error {
     flex-basis: 100%;
+  }
+  .gift-banner-payment {
+    align-self: center;
   }
 }
 

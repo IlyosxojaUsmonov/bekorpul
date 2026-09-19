@@ -73,6 +73,9 @@ export default function GiftCard() {
         </button>
         {error && <p className="field-error">{error}</p>}
       </form>
+      <div className="gift-banner-payment">
+        <inpay-button token={GIFT_PLAN.inpayToken!} />
+      </div>
     </div>
   );
 }
