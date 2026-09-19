@@ -39,8 +39,16 @@ export default function Hero({ onScrollTo }: HeroProps) {
           <div className="mock-body">
             <div className="mock-stats">
               <div className="mock-stat">
-                <div className="k">Sarflash</div>
-                <div className="v">tayyor</div>
+                <div className="k">Foydalanuvchi</div>
+                <div className="v">0</div>
+              </div>
+              <div className="mock-stat">
+                <div className="k">Natija</div>
+                <div className="v">yo'q</div>
+              </div>
+              <div className="mock-stat">
+                <div className="k">O'sish</div>
+                <div className="v">&mdash;</div>
               </div>
             </div>
             <div className="mock-chart">
